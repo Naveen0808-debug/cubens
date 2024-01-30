@@ -1,0 +1,22 @@
+---
+- name: install docker and build image
+  hosts: all
+  become: true
+  tasks:
+  - name: install docker.io
+    apt:
+     name: docker.io
+     state: present
+  - name: install pip package
+    apt:
+     name: python3-pip
+     state: present
+  - name: install docker python library
+    pip:
+     name: docker-py
+     state: present
+  - name: build image
+    docker_image:
+       build:
+          path: /home/ansible/
+       name: cubensquare/jan2023-image
